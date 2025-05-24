@@ -11,25 +11,30 @@
 1 != ? ("Error: one char accepted as separator" print "\n" print 1 exit)
 
 { = ! } move
-{ [#] ? ("\n" + print "") } print_word
 { =:1 1:%== 1:! } is_sep
 
 0:move:1
 
-"":2
-0:3
-[#] %? (
-    #(
-        3:=
-        %]#[
-        is_sep ? (
-            2:print_word:2
-        ) : (
-            =:2
-            2:+:2
-        )
-        !!
-        3:(= 1 +):3
-    )
-    2:print_word:2
+][:3
+3:!
+3:# #(
+    3:=:2
+    3:!
 )
+
+"":4
+0:5
+
+2:# #(
+    2:=
+    is_sep ? (
+        5:= 0 > ? (4:print "\n" print + "":4 + 0:5)
+    ) : (
+        =:4
+        4:+:4
+        5:(1 +):5
+    )
+    2:!
+)
+
+5:= 0 > ? (4:print "\n" print + "":4 + 0:5)
