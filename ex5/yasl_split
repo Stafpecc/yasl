@@ -1,0 +1,35 @@
+#!../yasl_linux
+
+!!
+#
+=
+1 <= ? ("Error: not enough arguments" print "\n" print 1 exit)
+2 > ? ("Error: too many arguments" print "\n" print 1 exit)
+# !
+
+][
+1 != ? ("Error: one char accepted as separator" print "\n" print 1 exit)
+
+{ = ! } move
+{ [#] ? ("\n" + print "") } print_word
+{ =:1 1:%== 1:! } is_sep
+
+0:move:1
+
+"":2
+0:3
+[#] %? (
+    #(
+        3:=
+        %]#[
+        is_sep ? (
+            2:print_word:2
+        ) : (
+            =:2
+            2:+:2
+        )
+        !!
+        3:(= 1 +):3
+    )
+    2:print_word:2
+)

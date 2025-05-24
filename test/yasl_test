@@ -1,0 +1,10 @@
+#!yasl_linux
+
+#
+
+1:=:1
+1:(1 +):1
+
+{ print "\n" print } aff
+
+aff 

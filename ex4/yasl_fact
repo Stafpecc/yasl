@@ -1,0 +1,30 @@
+#!../yasl_linux
+
+!!
+# 1 != ? ("Error: one argument needed" print "\n" print 1 exit)
+=
+# ! 0 < ? ("Error: number should be positive" print "\n" print 1 exit)
+=
+# ! "0" == ? ("1" print "\n" print 0 exit)
+=
+# ! 40000 >= ? ("Error: overflow" print "\n" print 1 exit)
+=
+# ! 1 < ? ("Error: argument is not number" print "\n" print 1 exit)
+
+{ 1 - } sub
+
+{
+	=
+	1 > ? (
+		=
+		sub
+		fact
+		*
+	)
+	=
+	0 < ? ("Error: overflow" print "\n" print 1 exit)
+} fact
+
+# !
+fact
+print "\n" print

@@ -1,0 +1,27 @@
+#!../yasl_linux
+
+!!
+# 1 <= ? ("Error: not enough arguments" print "\n" print 1 exit)
+=
+# ! 0 <= ? ("Error: first argument should be positive" print "\n" print 1 exit)
+
+{ #(= print) "\n" print ! } print_arg
+
+{1 +} add
+{1 -} sub
+
+{
+    = # !^
+    print_arg
+    #
+	sub
+    %? (
+        add
+        ^
+        add
+    ) : exit
+} loop
+
+eval
+#
+#loop

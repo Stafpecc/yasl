@@ -1,0 +1,7 @@
+#!../yasl_linux
+
+{ print "\n" print } aff
+
+!!
+#
+%? #aff

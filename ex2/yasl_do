@@ -1,0 +1,15 @@
+#!../yasl_linux
+
+!!
+
+{ print "\n" print } aff
+{ eval # !^ } rot_exec
+
+# ^
+
+rot_exec
+rot_exec
+eval
+
+aff
+

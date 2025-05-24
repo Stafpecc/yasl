@@ -1,0 +1,25 @@
+#!yasl_linux
+
+!!
+
+{ print "\n" print } aff
+{ "\n" print } print_return_line
+{ = print } print_once
+{ print_once } repeat
+{ "Error: invalid parameters\n" print exit } error
+{ # 1 <= ? error } check_arg
+=
+{ # ! 0 <= ? error } check_type
+
+0:0 0:+:2
+
+check_type
+check_arg
+
+# #(
+	2:=:0
+	0:#(0:=:3 3:print)
+	0:!
+	"\n" print
+	1:2 2:+:2
+)
