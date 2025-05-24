@@ -1,0 +1,9 @@
+#!../yasl_linux
+
+!!
+
+42 @ (
+	read
+	? eval : ( "^D\n" print 1 exit )
+	42
+)
