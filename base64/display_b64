@@ -1,2 +1,233 @@
 #!../yasl_linux
 
+// 0: pxl
+// 1: size
+// 2: compt
+// 5: compare
+// 6: base64 (alphabet)
+// 8: usage64 (temp base64)
+// 9: total_chars
+
+{ "Image have wrong char\n":8 8:print 8:1 8:exit } error_char
+
+{
+	(8:#:8 0:8 8:!=:8) 8:? (8:#:8 8:#!)
+	6:%][:8
+	8:!
+	63:4
+	3:=:8
+	8:!=:8
+	8:@(1:4
+		4:-:4
+		3:=:8
+		(8:#:8 1:8 8:==:8) 8:? (error_char)
+		8:!=:8
+		)
+	3:!
+} convert_decimal
+
+{
+    3:2
+    2:%@(
+        3:=:3
+        255:3
+        3:&:8
+        8:3
+        3:>>:3
+        1:2
+        2:-:2
+        )
+        2:! 
+} int_to_rgb
+
+{
+    3:2
+    2:%@(
+        3:=:3
+        255:3
+        3:&:3
+        6:3
+		3:*:3
+		256:3
+		3:/:8
+        2:(= 1 ==):2 ? 8:(36 *):8
+        2:(= 2 ==):2 ? 8:(6 *):8
+        8:3
+        3:>>:3
+        1:2
+        2:-:2
+    )
+    2:! 
+} int_to_colour
+
+{
+    "Wrong image : the image must be square.\n"
+    print
+    1
+    exit
+} print_error
+
+{
+    1:4            
+    1:3                
+    4:%@ (
+        3:=:3        
+        3:%*:3        
+        1:=:3        
+        3:%==:3  3:? (3:(!!!):3 4:! 0:4) : (
+            3:%>:3 3:? (3:print_error:3) : (3:(!!!):3 1:3 3:+:3)
+        )
+    )
+    4:(!)            
+    3:=:2
+	3:!        
+} get_square_size
+
+{
+    1:2
+    1:3
+    2:%@ (
+        3:=:3
+        3:%*:3
+        1:=:3
+        3:%==:3 3:? (3:(!!!):3 2:! 0:2) : (
+			3:%>:3 3:? (3:print_error:3) : (3:(!!!):3 1:3 3:+:3)
+        )
+    )
+    2:(!)
+    3:=:2
+    3:!
+} is_square
+
+{
+	4:9     
+	9:/:9	
+	9:=:1
+	9:!	  
+	get_square_size
+} count_pixels
+
+{
+	1:print
+	1:print
+} print_in_stack_one
+
+{
+	"Image received, nb pixels : ":1
+	print_in_stack_one
+	"\nFound square : ":1
+	1:print
+	2:=:2
+	2:print
+	"\n":1
+	1:print
+} print_info
+
+{
+	0:][:1 				
+
+	4:1
+	1:/:1				
+	1:#(
+							
+		4:8
+		8:#(1:=:2 1:!)
+		4 :8
+		8:#(2:=:3 2:!)
+
+		3 :8
+		8:#(3:+:3) 
+		3:=:0 
+		3:!
+	)
+} sep
+
+{
+	(8:#:8 8:#:8 8:#!)		
+	6:%][:8					
+	8:!						
+
+	0:=:3					
+	0:!						
+	3:][:3					
+	3:!						
+	
+	4:8						
+	8:#convert_decimal		
+	3:8
+	8:#(6:4			
+		4:<<:4
+		4:|:4
+	)							
+	4:=:3 
+	4:!
+
+	int_to_colour		
+	16:8
+    8:+:8
+    8:+:8
+    8:+:4	
+	"\e[48;5;":8
+	4:=:8
+	"m  ":8
+	8:(+ +):8
+	8:print
+	4:!
+} print_color
+
+{
+	count_pixels
+	print_info
+	sep
+} main
+
+{
+	2:=:2
+	2:#(	
+	2:=:2
+	2:#print_color
+	"\e[0m\n":9
+	9:print
+	)
+} print_all
+
+#!		
+
+"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/":6
+
+read
+(0 %==) ? ("Empty file or bad file\n":8 8:print 1:8 8:exit)
+!
+0:=:1
+is_square
+65535					
+0:==:2
+2:@(read 0:=:1 65535:0 0:==:2 0:+:0 1:+:1)
+
+
+0:%][:9
+
+9:#(
+	(8:#:8 8:#:8 8:#!)
+	6:%][:8
+	8:!
+	9:=:8
+	8:!=:8
+	8:@(
+		9:=:8
+		(8:#:8 1:8 8:==:8) 8:? ("wrong character\n":8 8:print 1:8 8:exit)
+		8:!=:8
+		)
+		9:!
+	)
+
+(8:#:8 8:#:8 8:#!)
+(9:#:9 9:#:9 9:#!)
+
+
+1:=:9  					
+1:!						
+2:!	
+
+main
+print_all
